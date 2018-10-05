@@ -48,8 +48,32 @@ void printArray(int *array, size_t size) {
     cout << endl;
 }
 
-void heapsort(int* array, size_t size) {
-    // TODO
+void heapify(int* array, int sizeofHeap, int i)
+{
+    int lar = i;
+    int l = 2*i + 1;
+    int r = 2*i + 2;
+  
+    if (l < sizeofHeap && array[l] > array[lar]) lar = l; 
+  
+    if (r < sizeofHeap && array[r] > array[lar]) lar = r; 
+  
+    if (lar != i) 
+    { 
+        swap(array[i], array[lar]); 
+        heapify(array, sizeofHeap, lar); 
+    } 
+}
+
+void heapsort(int* array, size_t size)
+{
+    for (int i = size / 2 - 1; i >= 0; i--) heapify(array, size, i); 
+  
+    for (int i=size-1; i>=0; i--) 
+    { 
+        swap(array[0], array[i]); 
+        heapify(array, i, 0); 
+    }     
 }
 
 bool validate(int* array, size_t size) {
